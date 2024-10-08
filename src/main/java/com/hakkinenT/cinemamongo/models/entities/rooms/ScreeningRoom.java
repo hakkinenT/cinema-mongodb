@@ -47,6 +47,10 @@ public class ScreeningRoom {
         this.seats = seats;
     }
 
+    public void addSeat(Seat seat){
+        this.seats.add(seat);
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
