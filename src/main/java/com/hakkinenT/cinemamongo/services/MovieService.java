@@ -47,15 +47,31 @@ public class MovieService {
     }
 
     private void addActors(MovieMinDTO dto, Movie movie) {
+        movie.getActors().clear();
         for(Actor actor : dto.getActors()){
             movie.addActors(actor);
         }
     }
 
     private void addGenders(MovieMinDTO dto, Movie movie) {
+        movie.getGenders().clear();
         for(Gender gender : dto.getGenders()){
             movie.addGender(gender);
         }
+    }
+
+    public MovieMinDTO update(String id, MovieMinDTO dto){
+        Movie movie = getMovieById(id);
+        createMovie(dto, movie);
+        
+        movie = movieRepository.save(movie);
+        return new MovieMinDTO(movie);
+    }
+
+    private Movie getMovieById(String id){
+        return movieRepository
+            .findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Recurso não encontrado"));
     }
 
     public void delete(String movieId){

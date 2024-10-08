@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -50,4 +51,9 @@ public class MovieController {
         return ResponseEntity.noContent().build();
     }
     
+    @PutMapping("/{id}")
+    public ResponseEntity<MovieMinDTO> update(@PathVariable String id, @RequestBody MovieMinDTO dto){
+        MovieMinDTO movie = movieService.update(id, dto);
+        return ResponseEntity.ok(movie);
+    }
 }
