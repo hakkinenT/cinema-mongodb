@@ -26,4 +26,8 @@ public class Actor {
     public List<Acts> getActs() {
         return acts;
     }
+
+    public void addActs(Acts acts){
+        this.acts.add(acts);
+    }
 }

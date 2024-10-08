@@ -1,18 +1,12 @@
-package com.hakkinenT.cinemamongo.models.entities.movies;
+package com.hakkinenT.cinemamongo.models.entities.movies.dto;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
+import com.hakkinenT.cinemamongo.models.entities.movies.Movie;
 import com.hakkinenT.cinemamongo.models.entities.movies.embedded.Actor;
 import com.hakkinenT.cinemamongo.models.entities.movies.embedded.Gender;
-import com.hakkinenT.cinemamongo.models.entities.sessions.Session;
 
-@Document(collection = "movies")
-public class Movie {
-    @Id
+import java.util.*;
+
+public class MovieMinDTO {
     private String id;
     private String title;
     private String duration;
@@ -21,19 +15,32 @@ public class Movie {
     private String ageRating;
     private List<Gender> genders = new ArrayList<>();
     private List<Actor> actors = new ArrayList<>();
-
-    private List<Session> sessions = new ArrayList<>();
     
-    public Movie() {
+    public MovieMinDTO() {
     }
 
-    public Movie(String id, String title, String duration, String imageUrl, String synopsis, String ageRating) {
+    public MovieMinDTO(String id, String title, String duration, String imageUrl, String synopsis, String ageRating,
+            List<Gender> genders, List<Actor> actors) {
         this.id = id;
         this.title = title;
         this.duration = duration;
         this.imageUrl = imageUrl;
         this.synopsis = synopsis;
         this.ageRating = ageRating;
+        this.genders = genders;
+        this.actors = actors;
+    }
+
+    public MovieMinDTO(Movie entity) {
+        this.id = entity.getId();
+        this.title = entity.getTitle();
+        this.duration = entity.getDuration();
+        this.imageUrl = entity.getImageUrl();
+        this.synopsis = entity.getSynopsis();
+        this.ageRating = entity.getAgeRating();
+        this.genders = entity.getGenders();
+        this.actors = entity.getActors();
+
     }
 
     public String getId() {
@@ -88,45 +95,17 @@ public class Movie {
         return genders;
     }
 
+    public void setGenders(List<Gender> genders) {
+        this.genders = genders;
+    }
+
     public List<Actor> getActors() {
         return actors;
     }
 
-    public List<Session> getSessions() {
-        return sessions;
+    public void setActors(List<Actor> actors) {
+        this.actors = actors;
     }
 
-    public void addGender(Gender gender){
-        this.genders.add(gender);
-    }
-
-    public void addActors(Actor actor){
-        this.actors.add(actor);
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Movie other = (Movie) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        return true;
-    }
     
 }
