@@ -11,6 +11,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.hakkinenT.cinemamongo.models.entities.movies.dto.MovieDTO;
 import com.hakkinenT.cinemamongo.models.entities.movies.dto.MovieMinDTO;
 import com.hakkinenT.cinemamongo.services.MovieService;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,6 +42,12 @@ public class MovieController {
                 .toUri();
 
         return ResponseEntity.created(uri).body(dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable String id){
+        movieService.delete(id);
+        return ResponseEntity.noContent().build();
     }
     
 }

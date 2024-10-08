@@ -58,6 +58,12 @@ public class MovieService {
         }
     }
 
-    
+    public void delete(String movieId){
+        if(!movieRepository.existsById(movieId)){
+            throw new ResourceNotFoundException("Recurso não encontrado");
+        }
+
+        movieRepository.deleteById(movieId);
+    }
 
 }
