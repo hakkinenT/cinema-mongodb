@@ -1,13 +1,13 @@
 package com.hakkinenT.cinemamongo.models.entities.rooms.dto;
 
-public class ScreeningRoomDTO {
+public class ScreeningRoomMinDTO {
     private Integer roomNumber;
     private Integer capacity;
 
-    public ScreeningRoomDTO() {
+    public ScreeningRoomMinDTO() {
     }
 
-    public ScreeningRoomDTO(Integer roomNumber, Integer capacity) {
+    public ScreeningRoomMinDTO(Integer roomNumber, Integer capacity) {
         this.roomNumber = roomNumber;
         this.capacity = capacity;
     }

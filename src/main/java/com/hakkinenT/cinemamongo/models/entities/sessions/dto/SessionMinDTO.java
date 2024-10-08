@@ -1,6 +1,6 @@
 package com.hakkinenT.cinemamongo.models.entities.sessions.dto;
 
-import com.hakkinenT.cinemamongo.models.entities.rooms.dto.ScreeningRoomDTO;
+import com.hakkinenT.cinemamongo.models.entities.rooms.dto.ScreeningRoomMinDTO;
 import com.hakkinenT.cinemamongo.models.entities.sessions.Session;
 import com.hakkinenT.cinemamongo.models.entities.sessions.embedded.Price;
 import com.hakkinenT.cinemamongo.utils.converters.DateConverter;
@@ -10,7 +10,7 @@ import java.time.*;
 public class SessionMinDTO {
     private LocalDate exhibitionDate;
     private LocalTime exhibitionHour;
-    private ScreeningRoomDTO room;
+    private ScreeningRoomMinDTO room;
 
     private Price price;
 
@@ -23,7 +23,7 @@ public class SessionMinDTO {
             boolean sessionClosed) {
         this.exhibitionDate = exhibitionDate;
         this.exhibitionHour = exhibitionHour;
-        this.room = new ScreeningRoomDTO(roomNumber, capacity);
+        this.room = new ScreeningRoomMinDTO(roomNumber, capacity);
         this.price = price;
         this.sessionClosed = sessionClosed;
     }
@@ -31,7 +31,7 @@ public class SessionMinDTO {
     public SessionMinDTO(Session entity) {
         this.exhibitionDate = DateConverter.zonedDateToLocalDate(entity.getExhibitionDate());
         this.exhibitionHour = DateConverter.zonedDateToLocalTime(entity.getExhibitionDate());
-        this.room = new ScreeningRoomDTO(entity.getRoomNumber(), entity.getCapacity());
+        this.room = new ScreeningRoomMinDTO(entity.getRoomNumber(), entity.getCapacity());
         this.price = entity.getPrice();
         this.sessionClosed = entity.isSessionClosed();
     }
@@ -52,11 +52,11 @@ public class SessionMinDTO {
         this.exhibitionHour = exhibitionHour;
     }
 
-    public ScreeningRoomDTO getRoom() {
+    public ScreeningRoomMinDTO getRoom() {
         return room;
     }
 
-    public void setRoom(ScreeningRoomDTO room) {
+    public void setRoom(ScreeningRoomMinDTO room) {
         this.room = room;
     }
 
