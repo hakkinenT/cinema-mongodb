@@ -1,18 +1,13 @@
-package com.hakkinenT.cinemamongo.models.entities.orders;
+package com.hakkinenT.cinemamongo.models.entities.orders.dto;
 
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.*;
+import java.util.*;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
+import com.hakkinenT.cinemamongo.models.entities.orders.Order;
 import com.hakkinenT.cinemamongo.models.entities.orders.embedded.Payment;
 import com.hakkinenT.cinemamongo.models.entities.orders.embedded.Ticket;
 
-@Document(collection = "orders")
-public class Order {
-    @Id
+public class OrderDTO {
     private String id;
     private Instant moment;
     private String userEmail;
@@ -20,16 +15,25 @@ public class Order {
     private Payment payment;
     private List<Ticket> tickets = new ArrayList<>();
     
-    public Order() {
+    public OrderDTO() {
     }
 
-    public Order(String id, Instant moment, String userEmail, Double total, Payment payment, List<Ticket> tickets) {
+    public OrderDTO(String id, Instant moment, String userEmail, Double total, Payment payment, List<Ticket> tickets) {
         this.id = id;
         this.moment = moment;
         this.userEmail = userEmail;
         this.total = total;
         this.payment = payment;
         this.tickets = tickets;
+    }
+
+    public OrderDTO(Order entity) {
+        this.id = entity.getId();
+        this.moment = entity.getMoment();
+        this.userEmail = entity.getUserEmail();
+        this.total = entity.getTotal();
+        this.payment = entity.getPayment();
+        this.tickets = entity.getTickets();
     }
 
     public String getId() {
@@ -76,33 +80,9 @@ public class Order {
         return tickets;
     }
 
-    public void addTicket(Ticket ticket){
-        this.tickets.add(ticket);
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Order other = (Order) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        return true;
-    }
     
 }
