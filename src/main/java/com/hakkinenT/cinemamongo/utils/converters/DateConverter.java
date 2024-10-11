@@ -13,4 +13,12 @@ public class DateConverter {
     public static LocalTime zonedDateToLocalTime(String dateTime){
         return LocalTime.parse(dateTime, zFormatter);
     }
+
+    public static LocalDateTime toLocalDateTime(LocalDate localDate, LocalTime localTime){
+        return LocalDateTime.of(localDate, localTime);
+    }
+
+    public static String localDateTimeToString(LocalDateTime localDateTime){
+        return localDateTime.format(zFormatter);
+    }
 }
